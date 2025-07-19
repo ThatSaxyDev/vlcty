@@ -76,6 +76,7 @@ class _StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.white.withAlpha(40),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
