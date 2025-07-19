@@ -27,9 +27,10 @@ class _TextDisplayState extends ConsumerState<TextDisplay> {
           decoration: BoxDecoration(
             color: _isHovered ? Colors.white.withAlpha(5) : Colors.transparent,
             borderRadius: BorderRadius.circular(4),
-            border: _isHovered
-                ? Border.all(color: Colors.white.withAlpha(50), width: 1)
-                : null,
+            border: Border.all(
+              color: Colors.white.withAlpha(_isHovered ? 50 : 0),
+              width: 1,
+            ),
           ),
           child: Center(
             child: RichText(

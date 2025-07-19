@@ -8,8 +8,6 @@ class KeyboardWidget extends ConsumerStatefulWidget {
   static const width = 1100.0;
   const KeyboardWidget({super.key});
 
- 
-
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _KeyboardWidgetState();
 }
@@ -32,9 +30,10 @@ class _KeyboardWidgetState extends ConsumerState<KeyboardWidget> {
         decoration: BoxDecoration(
           color: _isHovered ? Colors.white.withAlpha(5) : Colors.transparent,
           borderRadius: BorderRadius.circular(4),
-          border: _isHovered
-              ? Border.all(color: Colors.white.withAlpha(50), width: 1)
-              : null,
+          border: Border.all(
+            color: Colors.white.withAlpha(_isHovered ? 50 : 0),
+            width: 1,
+          ),
         ),
         child: Container(
           padding: EdgeInsets.all(16),
