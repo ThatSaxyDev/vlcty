@@ -3,6 +3,7 @@ import 'package:vlcty/app/typing/models/letter_stats.dart';
 class TypingSession {
   final Map<String, LetterStats> letterStats;
   final Set<String> currentSubset;
+  final String? targetLetter; // Added to track the target letter
   final List<String> currentWords;
   final String currentText;
   final String typedText;
@@ -15,6 +16,7 @@ class TypingSession {
   TypingSession({
     required this.letterStats,
     required this.currentSubset,
+    required this.targetLetter,
     required this.currentWords,
     required this.currentText,
     required this.typedText,
@@ -27,7 +29,8 @@ class TypingSession {
 
   TypingSession.initial()
       : letterStats = {},
-        currentSubset = {'a', 's', 'd', 'f'},
+        currentSubset = {'e', 'n', 'i', 't', 'r', 'l'}, // Updated initial set
+        targetLetter = null,
         currentWords = [],
         currentText = '',
         typedText = '',
@@ -40,6 +43,7 @@ class TypingSession {
   TypingSession copyWith({
     Map<String, LetterStats>? letterStats,
     Set<String>? currentSubset,
+    String? targetLetter,
     List<String>? currentWords,
     String? currentText,
     String? typedText,
@@ -52,6 +56,7 @@ class TypingSession {
     return TypingSession(
       letterStats: letterStats ?? this.letterStats,
       currentSubset: currentSubset ?? this.currentSubset,
+      targetLetter: targetLetter ?? this.targetLetter,
       currentWords: currentWords ?? this.currentWords,
       currentText: currentText ?? this.currentText,
       typedText: typedText ?? this.typedText,

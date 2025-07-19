@@ -25,18 +25,25 @@ class TypingSessionNotifier extends Notifier<TypingSession> {
   }
 
   void _generateNewLesson() {
-    final frequencies = _algorithm.calculateLetterFrequencies(
+    final (:subset, :targetLetter) = _algorithm.getNextSubset(
       state.letterStats,
       state.currentSubset,
-      <String>{}, // No new letters initially
     );
 
-    // Log the current letterSubset
-    print('Current letterSubset: ${state.currentSubset}');
+    final frequencies = _algorithm.calculateLetterFrequencies(
+      state.letterStats,
+      subset,
+      targetLetter,
+    );
+
+    // Log the current letterSubset and targetLetter
+    print('Current letterSubset: $subset');
+    print('Target letter: $targetLetter');
 
     final words = _wordGenerator.generateWords(
-      letterSubset: state.currentSubset,
+      letterSubset: subset,
       letterFrequencies: frequencies,
+      targetLetter: targetLetter,
       wordCount: 20,
     );
 
@@ -46,6 +53,8 @@ class TypingSessionNotifier extends Notifier<TypingSession> {
     final text = words.join(' ');
 
     state = state.copyWith(
+      currentSubset: subset,
+      targetLetter: targetLetter,
       currentWords: words,
       currentText: text,
       typedText: '',
@@ -107,7 +116,7 @@ class TypingSessionNotifier extends Notifier<TypingSession> {
           ((existing.averageTime * existing.attempts) + time) / newAttempts;
       final newAccuracy =
           ((existing.accuracy * existing.attempts) + (isCorrect ? 1.0 : 0.0)) /
-          newAttempts;
+              newAttempts;
 
       currentStats[letter] = existing.copyWith(
         averageTime: newAverageTime,
@@ -132,14 +141,7 @@ class TypingSessionNotifier extends Notifier<TypingSession> {
   }
 
   void _completeLesson() {
-    // Check if we can progress to next level
-    final newSubset = _algorithm.getNextSubset(
-      state.letterStats,
-      state.currentSubset,
-    );
-    final hasNewLetters = newSubset.length > state.currentSubset.length;
-
-    state = state.copyWith(currentSubset: newSubset, isActive: false);
+    state = state.copyWith(isActive: false);
 
     // Auto-generate next lesson after a brief delay
     Future.delayed(const Duration(seconds: 2), () {
@@ -155,9 +157,14 @@ class TypingSessionNotifier extends Notifier<TypingSession> {
     state = TypingSession.initial();
     _initializeSession();
   }
+
+  // Helper method to get indicator color for UI
+  String getIndicatorColor(String letter) {
+    return _algorithm.getIndicatorColor(letter, state.letterStats);
+  }
 }
 
 final typingSessionProvider =
     NotifierProvider<TypingSessionNotifier, TypingSession>(() {
-      return TypingSessionNotifier();
-    });
+  return TypingSessionNotifier();
+});
