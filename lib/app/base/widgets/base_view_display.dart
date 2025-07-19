@@ -43,9 +43,9 @@ class _BaseViewDisplayState extends ConsumerState<BaseViewDisplay> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _StatCard('WPM', session.wpm.toInt().toString()),
-                _StatCard('CPM', session.cpm.toInt().toString()),
-                _StatCard('Letters', session.currentSubset.join(', ')),
+                StatCard('WPM', session.wpm.toInt().toString()),
+                StatCard('CPM', session.cpm.toInt().toString()),
+                StatCard('Letters', session.currentSubset.join(', ')),
               ],
             ),
             const SizedBox(height: 30),
@@ -67,11 +67,11 @@ class _BaseViewDisplayState extends ConsumerState<BaseViewDisplay> {
   }
 }
 
-class _StatCard extends StatelessWidget {
+class StatCard extends StatelessWidget {
   final String label;
   final String value;
 
-  const _StatCard(this.label, this.value);
+  const StatCard(this.label, this.value, {super.key});
 
   @override
   Widget build(BuildContext context) {
