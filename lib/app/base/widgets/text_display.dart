@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vlcty/app/typing/models/typing_session.dart';
@@ -33,16 +34,23 @@ class _TextDisplayState extends ConsumerState<TextDisplay> {
             ),
           ),
           child: Center(
-            child: RichText(
-              text: TextSpan(
-                style: const TextStyle(
-                  fontSize: 24,
-                  height: 1.5,
-                  color: Colors.white,
-                ),
-                children: _buildTextSpans(session),
-              ),
-            ),
+            child: session.isLoading
+                ? Row(
+                    children: List.generate(
+                      4,
+                      (index) => CupertinoActivityIndicator(),
+                    ),
+                  )
+                : RichText(
+                    text: TextSpan(
+                      style: const TextStyle(
+                        fontSize: 24,
+                        height: 1.5,
+                        color: Colors.white,
+                      ),
+                      children: _buildTextSpans(session),
+                    ),
+                  ),
           ),
         ),
       ),

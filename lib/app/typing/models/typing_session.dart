@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:vlcty/app/typing/models/letter_stats.dart';
 
 class TypingSession {
@@ -12,6 +13,7 @@ class TypingSession {
   final double cpm;
   final DateTime sessionStart;
   final bool isActive;
+  final bool isLoading;
 
   TypingSession({
     required this.letterStats,
@@ -25,20 +27,23 @@ class TypingSession {
     required this.cpm,
     required this.sessionStart,
     required this.isActive,
+    this.isLoading = false,
   });
 
   TypingSession.initial()
-      : letterStats = {},
-        currentSubset = {'e', 'n', 'i', 't', 'r', 'l'}, // Updated initial set
-        targetLetter = null,
-        currentWords = [],
-        currentText = '',
-        typedText = '',
-        currentIndex = 0,
-        wpm = 0,
-        cpm = 0,
-        sessionStart = DateTime.now(),
-        isActive = false;
+    : letterStats = {},
+      currentSubset = {'e', 'n', 'i', 't', 'r', 'l'}, // Updated initial set
+      targetLetter = null,
+      currentWords = [],
+      currentText = '',
+      typedText = '',
+      currentIndex = 0,
+      wpm = 0,
+      cpm = 0,
+      sessionStart = DateTime.now(),
+      isActive = false,
+      isLoading = false;
+
 
   TypingSession copyWith({
     Map<String, LetterStats>? letterStats,
@@ -52,6 +57,7 @@ class TypingSession {
     double? cpm,
     DateTime? sessionStart,
     bool? isActive,
+    bool? isLoading,
   }) {
     return TypingSession(
       letterStats: letterStats ?? this.letterStats,
@@ -65,6 +71,7 @@ class TypingSession {
       cpm: cpm ?? this.cpm,
       sessionStart: sessionStart ?? this.sessionStart,
       isActive: isActive ?? this.isActive,
+      isLoading: isLoading ?? this.isLoading,
     );
   }
 }

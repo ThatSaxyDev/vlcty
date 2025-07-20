@@ -1,41 +1,51 @@
 import 'dart:math';
-import 'package:english_words/english_words.dart';
+import 'package:all_english_words/all_english_words.dart';
 
 class WordGenerator {
   final Random _random = Random();
+  final List<String> _allWords = [];
 
   // Custom word list to ensure variety and include specific words
-  final List<String> _customWords = [
-    'the',
-    'that',
-    'with',
-    'ten',
-    'net',
-    'lit',
-    'let',
-    'tin',
-    'line',
-    'rent',
-    'dad',
-    'sad',
-    'add',
-    'fed',
-    'led',
-    'red',
-    'sal',
-    'jar',
-    'far',
-    'lad',
-    'sale',
-    'flea',
-    'dear',
-    'list',
-    'rest',
-    'tilt',
-    'lint',
-    'rite',
-    'tile',
-  ];
+  // final List<String> _customWords = [
+  //   'the',
+  //   'that',
+  //   'with',
+  //   'ten',
+  //   'net',
+  //   'lit',
+  //   'let',
+  //   'tin',
+  //   'line',
+  //   'rent',
+  //   'dad',
+  //   'sad',
+  //   'add',
+  //   'fed',
+  //   'led',
+  //   'red',
+  //   'sal',
+  //   'jar',
+  //   'far',
+  //   'lad',
+  //   'sale',
+  //   'flea',
+  //   'dear',
+  //   'list',
+  //   'rest',
+  //   'tilt',
+  //   'lint',
+  //   'rite',
+  //   'tile',
+  // ];
+
+  Future<void> getWords() async {
+    var englishWords = AllEnglishWords();
+
+    if (_allWords.isNotEmpty) return;
+    List<String> allWords = englishWords.allWords;
+
+    _allWords.addAll(allWords);
+  }
 
   List<String> generateWords({
     required Set<String> letterSubset,
@@ -46,7 +56,7 @@ class WordGenerator {
     int maxWordLength = 8,
   }) {
     // Combine custom words with english_words, filter by letterSubset and targetLetter
-    final validWords = <String>{..._customWords, ...all}
+    final validWords = <String>{..._allWords}
         .where(
           (word) =>
               word.length >= minWordLength &&

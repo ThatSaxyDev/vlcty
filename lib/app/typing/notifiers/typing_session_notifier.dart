@@ -17,6 +17,14 @@ class TypingSessionNotifier extends Notifier<TypingSession> {
     return initialState;
   }
 
+  void startLoading() {
+    state = state.copyWith(isLoading: true);
+  }
+
+  void stopLoading() {
+    state = state.copyWith(isLoading: false);
+  }
+
   final WordGenerator _wordGenerator = WordGenerator();
   final AdaptiveAlgorithm _algorithm = AdaptiveAlgorithm();
   DateTime? _lastKeystroke;
@@ -25,7 +33,10 @@ class TypingSessionNotifier extends Notifier<TypingSession> {
     _generateNewLesson();
   }
 
-  void _generateNewLesson() {
+  void _generateNewLesson() async {
+    startLoading();
+    await _wordGenerator.getWords();
+
     final (:subset, :targetLetter) = _algorithm.getNextSubset(
       state.letterStats,
       state.currentSubset,
@@ -52,6 +63,8 @@ class TypingSessionNotifier extends Notifier<TypingSession> {
     print('Generated words: $words');
 
     final text = words.join(' ');
+
+    stopLoading();
 
     state = state.copyWith(
       currentSubset: subset,
