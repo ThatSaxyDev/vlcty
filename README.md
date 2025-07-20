@@ -2,6 +2,6 @@
 
 ## velocity
 
-- Learn to type
+- [Learn to type with VLCTY](https://vlcty.netlify.app/)
 
 
