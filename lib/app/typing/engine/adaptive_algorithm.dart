@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:vlcty/app/typing/models/letter_stats.dart';
 
 class AdaptiveAlgorithm {
-  static const double _targetAccuracy = 0.80;
-  static const double _targetTimeThreshold = 400;
+  static const double _targetAccuracy = 0.75;
+  static const double _targetTimeThreshold = 460;
   static const int _minAttemptsForProgression = 10;
-  static const double _yellowAccuracyThreshold = 0.72; //! 90% of 0.80
-  static const double _yellowTimeThreshold = 480; //! 120% of 400ms
-  static const int _maxLessonsForTarget = 4; //! rotate after 4 lessons
+  static const double _yellowAccuracyThreshold = 0.675; //! 90% of 0.75
+  static const double _yellowTimeThreshold = 552; //! 120% of 460ms
+  static const int _maxLessonsForTarget = 7; //! rotate after 4 lessons
 
   final List<String> _letterProgression = [
     'e', 'n', 'i', 't', 'r', 'l', //! initial set

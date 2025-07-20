@@ -91,19 +91,13 @@ class _KeyboardWidgetState extends ConsumerState<KeyboardWidget> {
   }
 
   Color _getKeyColor(KeyModel key, KeyPressState keyPressState) {
-    int baseAlpha = 60; // Original alpha
+    int baseAlpha = 60;
 
-    // Special handling for Caps Lock key - show different color when enabled
     if (key.label == 'Caps Lock' && keyPressState.isCapsLockEnabled) {
-      // Make Caps Lock key more prominent when enabled (even if not pressed)
-      return Colors.orange.withAlpha(
-        180,
-      ); // Different color to show it's active
+      return Colors.orange.withAlpha(180);
     }
 
-    // Check if this key is currently pressed
     if (keyPressState.pressedKeys.contains(key.label)) {
-      // Increase the alpha value of the key's color
       int increasedAlpha = (baseAlpha + keyPressState.alphaIncrease).clamp(
         0,
         255,
@@ -111,7 +105,6 @@ class _KeyboardWidgetState extends ConsumerState<KeyboardWidget> {
       return key.color.withAlpha(increasedAlpha);
     }
 
-    // Return original color
     return key.color.withAlpha(baseAlpha);
   }
 }

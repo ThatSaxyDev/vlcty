@@ -49,7 +49,6 @@ class KeyboardPressNotifier extends Notifier<KeyPressState> {
   }
 
   String _normalizeKey(String key) {
-    // Map physical keys to display labels that match your KeyModel labels exactly
     switch (key.toLowerCase()) {
       case ' ':
         return '';
@@ -197,7 +196,6 @@ class KeyboardPressNotifier extends Notifier<KeyPressState> {
       case 'z':
         return 'Z';
       default:
-        // Fallback: try to match the key as-is, then uppercase
         String fallback = key.length == 1 ? key.toUpperCase() : key;
         return fallback;
     }
