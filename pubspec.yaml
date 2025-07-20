@@ -1,6 +1,6 @@
 name: vlcty
-description: "A new Flutter project."
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+description: "Learn to type with VLCTY, a typing tool that helps you improve your typing skills"
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
@@ -19,10 +19,40 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: ^0.14.4
+  flutter_native_splash: ^2.4.4
+
   flutter_lints: ^5.0.0
 
-flutter:
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: false
+  image_path: "assets/images/launcher.png"
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "assets/images/launcher.png"
+    background_color: "#333333"
+    theme_color: "#333333"
+  windows:
+    generate: true
+    image_path: "assets/images/launcher.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/images/launcher.png"
 
+flutter_native_splash:
+  color: "#333333"
+  image: "assets/images/launcher.png"
+  icon_background_color: "#333333"
+  fullscreen: false
+  android: false
+  ios: false
+  web: true
+
+flutter:
   uses-material-design: true
 
-
+  assets:
+    - assets/images/
