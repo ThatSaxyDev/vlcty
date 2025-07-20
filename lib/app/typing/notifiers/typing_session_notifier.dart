@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vlcty/app/typing/engine/adaptive_algorithm.dart';
 import 'package:vlcty/app/typing/engine/word_generator.dart';
@@ -116,7 +117,7 @@ class TypingSessionNotifier extends Notifier<TypingSession> {
           ((existing.averageTime * existing.attempts) + time) / newAttempts;
       final newAccuracy =
           ((existing.accuracy * existing.attempts) + (isCorrect ? 1.0 : 0.0)) /
-              newAttempts;
+          newAttempts;
 
       currentStats[letter] = existing.copyWith(
         averageTime: newAverageTime,
@@ -134,7 +135,7 @@ class TypingSessionNotifier extends Notifier<TypingSession> {
     if (elapsed > 0) {
       final charactersTyped = state.currentIndex;
       final cpm = (charactersTyped / elapsed) * 60.0;
-      final wpm = cpm / 5.0; // Standard: 5 characters = 1 word
+      final wpm = cpm / 5.0;
 
       state = state.copyWith(cpm: cpm, wpm: wpm);
     }
@@ -159,12 +160,12 @@ class TypingSessionNotifier extends Notifier<TypingSession> {
   }
 
   // Helper method to get indicator color for UI
-  String getIndicatorColor(String letter) {
+  Color getIndicatorColor(String letter) {
     return _algorithm.getIndicatorColor(letter, state.letterStats);
   }
 }
 
 final typingSessionProvider =
     NotifierProvider<TypingSessionNotifier, TypingSession>(() {
-  return TypingSessionNotifier();
-});
+      return TypingSessionNotifier();
+    });

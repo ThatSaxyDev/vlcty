@@ -54,9 +54,11 @@ class _BaseViewState extends ConsumerState<BaseView> {
                   .read(keyboardPressProvider.notifier)
                   .onKeyDown(event.logicalKey.keyLabel);
 
-              ref
-                  .read(typingSessionProvider.notifier)
-                  .onKeyPressed(event.character!);
+              if (event.character != null) {
+                ref
+                    .read(typingSessionProvider.notifier)
+                    .onKeyPressed(event.character!);
+              }
             } else if (event is KeyUpEvent) {
               ref
                   .read(keyboardPressProvider.notifier)

@@ -67,10 +67,6 @@ class WordGenerator {
       filteredWords.remove(word); // Avoid duplicates
     }
 
-    // Log for debugging
-    print('Valid words: $validWords');
-    print('Generated words: $words');
-
     return words;
   }
 
