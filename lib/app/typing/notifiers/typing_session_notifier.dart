@@ -10,7 +10,7 @@ class TypingSessionNotifier extends Notifier<TypingSession> {
   TypingSession build() {
     final initialState = TypingSession.initial();
 
-    Future.microtask(() {
+    Future(() {
       _initializeSession();
     });
 

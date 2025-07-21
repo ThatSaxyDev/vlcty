@@ -1,50 +1,28 @@
 import 'dart:math';
 import 'package:all_english_words/all_english_words.dart';
+import 'package:flutter/foundation.dart';
 
 class WordGenerator {
   final Random _random = Random();
   final List<String> _allWords = [];
 
-  // Custom word list to ensure variety and include specific words
-  // final List<String> _customWords = [
-  //   'the',
-  //   'that',
-  //   'with',
-  //   'ten',
-  //   'net',
-  //   'lit',
-  //   'let',
-  //   'tin',
-  //   'line',
-  //   'rent',
-  //   'dad',
-  //   'sad',
-  //   'add',
-  //   'fed',
-  //   'led',
-  //   'red',
-  //   'sal',
-  //   'jar',
-  //   'far',
-  //   'lad',
-  //   'sale',
-  //   'flea',
-  //   'dear',
-  //   'list',
-  //   'rest',
-  //   'tilt',
-  //   'lint',
-  //   'rite',
-  //   'tile',
-  // ];
-
   Future<void> getWords() async {
-    var englishWords = AllEnglishWords();
+    final englishWords = AllEnglishWords();
 
     if (_allWords.isNotEmpty) return;
-    List<String> allWords = englishWords.allWords;
 
-    _allWords.addAll(allWords);
+    const chunkSize = 500;
+    List<String> allWords = englishWords.englishWords;
+
+    for (var i = 0; i < allWords.length; i += chunkSize) {
+      final end = (i + chunkSize < allWords.length)
+          ? i + chunkSize
+          : allWords.length;
+      final chunk = allWords.sublist(i, end);
+      _allWords.addAll(chunk);
+
+      await Future.delayed(Duration(milliseconds: 1));
+    }
   }
 
   List<String> generateWords({

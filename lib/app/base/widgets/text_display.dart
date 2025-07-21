@@ -34,13 +34,8 @@ class _TextDisplayState extends ConsumerState<TextDisplay> {
             ),
           ),
           child: Center(
-            child: session.isLoading
-                ? Row(
-                    children: List.generate(
-                      4,
-                      (index) => CupertinoActivityIndicator(),
-                    ),
-                  )
+            child: session.isLoading || session.currentText.isEmpty
+                ? Center(child: CupertinoActivityIndicator())
                 : RichText(
                     text: TextSpan(
                       style: const TextStyle(
